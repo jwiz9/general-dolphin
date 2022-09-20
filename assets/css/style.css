@@ -1,0 +1,320 @@
+/* ------------------- */
+/* Global Declarations */
+/* ------------------- */
+:root {
+    --theme: #0601209d; 
+}
+*   {
+    font-family: monospace;
+}
+
+body {
+    background-color: var(--theme);
+    height: 100vh;
+    overflow: hidden;
+}
+
+button {
+    font-weight: 900;
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+main {
+    width: 100%;
+    margin: 0 auto calc(15vh + 50px) auto;
+    background-color: #201a33;
+    border-radius: 10px;
+    box-shadow: 0 0 40px black;
+    padding: 20px;
+}
+
+/* --------------------- */
+/* Miscellaneous Classes */
+/* --------------------- */
+
+.red-nav-button {
+    background-color: #8e3b3b;
+    box-shadow: 0 0 5px black;
+    transition: background-color 0.25s;
+}
+
+.red-nav-button:hover {
+    background-color: #b45e5e;
+}
+
+.horizonal-center {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.abs-max-height {
+    height: 100%;
+}
+
+.rel-max-height {
+    height: 100vh;
+}
+
+.half-height {
+    height: 50%;
+}
+
+.vertical-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.small-padding {
+    padding: 5px;
+}
+
+.medium-padding {
+    padding: 15px;
+}
+
+.large-padding {
+    padding: 25px;
+}
+
+/* ----------------- */
+/* Highscore / Timer */
+/* ----------------- */
+
+.top-bar {
+    width: 100%;
+    padding: 20px 20px 10px 20px;
+}
+
+.top-bar div {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Highscore button */
+.top-bar button {
+    height: 100%;
+    margin: 0;
+    font-size: 1.1em;
+    border-radius: 15px;
+    background-color: #995454;
+}
+
+/* Timer */
+.top-bar p {
+    letter-spacing: 2px;
+    font-weight: 600;
+    height: 100%;
+    background-color: #303030;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px white;
+}
+
+/* ------------------*/
+/* Quiz Intro Screen */
+/* ----------------- */
+
+/* Quiz intro */
+header {
+    display: block;
+    background-color:#303030;
+    border-radius: 10px;
+    box-shadow: 0 0 50px black;
+}
+
+/* Quiz intro content box */
+header div {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Quiz intro description */
+header p {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+/* Quiz intro heading */
+h1 {
+    letter-spacing: 5px;
+    padding-bottom: 25px;
+    color: #f1ca72;
+}
+
+.start-quiz-button {
+    margin: 25px auto 0 auto;
+    font-weight: 900;
+    padding: 10px 15px;
+}
+
+/* --------------- */
+/* Question Screen */
+/* --------------- */
+
+.question-screen {
+    display:none;
+}
+
+/* Question title & subtitles */
+.question title, .question-title span {
+    color: #cbcf92;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+/* Question numerator title */
+.question-title span:first-child {
+    color: #7d7d7d;
+}
+
+/* Question title underline */
+.question-title::after {
+    content:"";
+    width: 80%;
+    margin: 0 auto;
+    background-color: #4c4c4c;
+    position: absolute;
+    left: 10%;
+    bottom: -10px;
+    height: 2px;
+    border-radius: 2px;
+    box-shadow: 0 0 3px #454545;
+}
+
+/* List item that contains the answer buttons */
+.question-screen li {
+    padding: 5px;
+    width: 50%;
+    min-height: 3em;
+    transition: width 0.25s;
+    word-break: break-all;
+}
+
+.question-screen li:hover {
+    width: 60%;
+}
+
+/* The answer button container */
+.question-screen ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Answer buttons */
+.question-screen button {
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    color: #dbdbdb;
+    box-shadow: 0 0 5px #000000;
+    background-color: #121212;
+    transition: background-color 0.25s;
+}
+
+.question-screen button:hover {
+    background-color: #1e1e1e;
+}
+
+.question-feedback {
+    margin-top: 25px;
+}
+
+.question-feedback p {
+    font-weight: 900;
+    color: #9c9c9c;
+    font-size: 1.2em;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+/* -------------------- */
+/* Quiz Finished Screen */
+/* -------------------- */
+
+.finish-screen {
+    display: none;
+}
+
+.finish-screen h2 {
+    color: #fff5a6;
+    margin-bottom: 5px;
+}
+
+.finish-screen p {
+    font-size: 1.1em;
+}
+
+.score-entry label {
+    height: 50%;
+    flex: 1;
+    margin-bottom: 5px;
+}
+
+.score-entry button {
+    flex: 1;
+    font-size: 1.1em;
+    padding: 5px;
+}
+
+.score-entry {
+    padding: 10px;
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* ----------------- */
+/* Highscores Screen */
+/* ----------------- */
+
+.highscores-screen h2 {
+    color: #fff5a6;
+    margin-bottom: 15px;
+}
+
+.highscores-screen ol {
+    color: white;
+    font-size: 1.4em;
+    padding: 5px;
+    font-weight: 900;
+    overflow-y: scroll;
+    margin-bottom: 15px;
+    background-color: #272727;
+    box-shadow: 0 0 10px black;
+    max-height: 60vh;
+    min-height: 20px;
+}
+
+.highscores-screen button {
+    display: inline;
+    margin-right: 10px;
+    box-shadow: 0 0 10px black;
+}
+
+.highscores-screen ol li {
+    padding: 5px;
+    background-color: #555555;
+}
+
+.highscores-screen ol li:nth-child(2n) {
+    background-color: #454545
+}
+
+/* ----------- */
+/* Media Query */
+/* ----------- */
+
+@media screen and (max-width: 768px) {
+    .horizonal-center {
+        width: 80%;
+    }
+
+}
