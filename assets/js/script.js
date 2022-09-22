@@ -92,7 +92,7 @@ var questionArray = [
         answer: "1"
     },
     {
-        question: "How do you convert strings to obejects using JSON?",
+        question: "How do you convert strings to objects using JSON?",
         choice1: "JSON.parse()",
         choice2: "JSON.stringify()",
         choice3: "JSON.string()",
@@ -224,9 +224,181 @@ function initQuestion(currentSortArrayIndex) {
     
 }
 
-// Start Button.
-// Timer with start button click.
-// minus to time when questions are answered incorrectly.
-// When all questions have been answered
-// Game is over.
-// When game is over, save initials and score.
+function gameOver() {
+    clearInterval(timeInterval);
+    // Removes button choices once game over.
+    var ul = document.querySelector("#choices");
+    var footer = document.querySelector(".question-footer");
+    boxEl.removeChild(ul);
+    boxEl.removeChild(footer);
+
+    // Replace header text depending on the score.
+    questionEl.textContent = (score >= Math.round(questionArray.length * 0.70)) ? "Congratulations! All done!" : "Better luck next time! All done!";
+
+    // Creates elements for the end-of-game page.
+    var div = document.createElement("div");
+    div.setAttribute("class", "text-containter");
+    boxEl.appendChild(div);
+    
+    var text = document.createElement("p");
+    text.textContent = "Your final score is " + score +".";
+    div.appendChild(text);
+    
+    var form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    div.appendChild(form);
+    
+    var labelForm = document.createElement("label");
+    labelForm.textContent = "Enter initials: ";
+    form.appendChild(labelForm);
+
+    var inputForm = document.createElement("input");
+    inputForm.setAttribute("type", "text");
+    labelForm.appendChild(inputForm);
+
+    var buttonForm = document.createElement("button");
+    buttonForm.setAttribute("class", "submit-button");
+    buttonForm.setAttribute("style", "width: 10vw; height: 40px;");
+    buttonForm.addEventListener("click", submitClick);
+    buttonForm.textContent = " Submit ";
+    labelForm.appendChild(buttonForm);
+}
+
+function submitClick(event) {
+    // Prevents refreshing of page when Submit button is clicked.
+    event.preventDefault();
+
+    var scoreArray = [];
+    // Get stored userScores from localStorage using JSON to convert back to object.
+    var userScores = JSON.parse(localStorage.getItem("userScores"));
+    
+    var userNewScore = {
+        name: document.querySelector("input").value.trim(),
+        score: score
+    };
+
+    // Prevents user from inputing blank initials into highscore screen.
+    if (userNewScore.name === "") {
+        window.alert("Initials cannot be blank");
+        return;
+    }
+
+    // Saves initials to score.
+    if (userScores === null) {
+        scoreArray.push(userNewScore);
+    } else {
+        for (var i = 0; i < userScores.length; i++) {
+            scoreArray.push(userScores[i]);
+        }
+        scoreArray.push(userNewScore);
+        // Sort scores in descending order.
+        scoreArray = scoreArray.sort(function (c1, c2) { return c2.score - c1.score; });
+    }
+
+    localStorage.setItem("userScores", JSON.stringify(scoreArray));
+    // Changes webpage from index.html to highscore.html
+    window.location.href = "./highscores.html";
+    
+    if (window.onload && window.location.href === './highscores.html') {
+        loadScores();   
+    } 
+}
+
+boxEl.addEventListener("click", function (event) {
+    var element = event.target;
+    var timeLeft;
+    var footerQuestionEl = document.querySelector(".question-footer");
+    var footerHeader = document.querySelector(".question-head");
+    
+    // Only clicks on button will trigger event.
+    if (element.matches("button")) {
+        var chosenAnswer = element.getAttribute("class");
+
+        switch (chosenAnswer) {
+            case "start-button":
+                // Start Button.
+                sortArrayQuestions = [];    // Initialise a new set of questions within the array everytime the start button is pressed.
+                currentQuestionIndex = 0;   
+                gameStatus = true;
+            
+                randomSort(questionArray);
+                initQuestion(currentSortArrayIndex);
+                
+                // Timer countdown of 60 seconds with start button click.
+                countdown();
+                break;
+            case "back-button":
+                window.location.href = "./index.html";
+                break;
+            case "reset-button":
+                localStorage.setItem("userScores", null);
+        
+                // Button will remove ul and li elements.
+                var ul = document.querySelector("#highscore-list");
+                listEl.removeChild(ul);
+                // Button will clear highscores.
+                buttonContainer.removeChild(resetButton);
+                break;
+            default:
+                footerQuestionEl.setAttribute("style", "font-style: italic; border-top: 3px black solid");
+                if (chosenAnswer === questionArray[currentQuestionIndex].answer) {
+                    footerHeader.textContent = "Correct!";
+                    // Footer flash.
+                    flashText();
+                    score++;
+                    if (currentSortArrayIndex < questionArray.length - 1) {
+                        // Moves on to next question.
+                        currentSortArrayIndex++;
+                        initQuestion(currentSortArrayIndex);
+                    } else {
+                        footerQuestionEl.setAttribute("style", "display: none;");
+                        gameStatus = false;
+                        gameOver();
+                    }
+                } else {
+                    // Minus to time when questions are answered incorrectly.
+                    footerHeader.textContent = "Incorrect!";
+                    flashText();
+
+                    clearInterval(timeInterval);
+                    timeLeft = timerEl.textContent - 10;
+                    if (timeLeft <= 0) {
+                        // When timer reaches 0 - Gameover
+                        timerEl.textContent = 0;
+                        footerQuestionEl.setAttribute("style", "display: none;");
+                        gameStatus = false;
+                        gameOver();
+                    }
+                    countdown(timeLeft);
+                }
+                break;
+        }
+    }
+});
+
+// Load the scores into highscores.html
+function loadScores() {
+    // Unordered list and append every item in the userScores object into a list item
+    var ul = document.createElement("ul");
+    ul.setAttribute("id", "highscore-list");
+    ul.setAttribute("style", "text-align: left;")
+    listEl.appendChild(ul);
+
+    var userScores = JSON.parse(localStorage.getItem("userScores"));
+    
+    // Name and score
+    if (userScores !== null) {
+        userScores.forEach((element, index) => {
+            li = document.createElement("li");
+            listClass = index + 1;
+            li.setAttribute("class", "li-" + listClass);
+            li.textContent = listClass + ". " + element.name + " - " + element.score;
+            ul.appendChild(li);    
+        });        
+    } else {
+        // No reset button when the userScores is empty
+        buttonContainer.removeChild(resetButton);
+    }
+}
+
+
