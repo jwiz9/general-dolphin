@@ -10,6 +10,8 @@ The purpose of this project is provide myself with a brief review of what I have
 
 Use this README to explore my motives, design ideas, and coding ability using the following screenshot:
 
+https://github.com/jwiz9/general-dolphin/deployments/activity_log?environment=github-pages
+
 ![sketch-1](https://user-images.githubusercontent.com/112971337/191641093-2da25415-7897-4f12-bf67-145e1c377ff1.png)
 
 ![sketch-2](https://user-images.githubusercontent.com/112971337/191641110-911de260-3bd8-4982-a191-8f01dba9b41a.png)
