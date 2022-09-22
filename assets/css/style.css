@@ -1,12 +1,19 @@
 /* ------------------- */
 /* Global Declarations */
 /* ------------------- */
-
+:root {
+    --color1: darkred;
+    --color2: darkblue;
+    --color3: black;
+    --color4: white;
+}
 *   {
     font-family: monospace;
     margin: 10px;
     font-size: 16px;
+    color: var(--color3);
 }
+
 h1 {
     font-size: 1.5rem;
 }
@@ -27,9 +34,9 @@ nav, nav a:visited {
 }
 
 nav a {
-    background-color: darkblue;
-    color: white;
-    box-shadow: 0 0 5px black;
+    background-color: var(--color2);
+    color: var(--color4);
+    box-shadow: 0 0 5px var(--color3);
     transition: background-color 0.25s;
     padding: 10px;
     height: 2.5rem;
@@ -37,7 +44,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: darkred;
+    background-color: var(--color1);
 }
 
 section {
@@ -46,9 +53,9 @@ section {
 }
 
 button {
-    background-color: darkred;
-    color: white;
-    box-shadow: 0 0 5px black;
+    background-color: var(--color1);
+    color: var(--color4);
+    box-shadow: 0 0 5px var(--color3);
     transition: background-color 0.25s;
     padding: 10px;
     height: 2.5rem;
@@ -56,7 +63,7 @@ button {
 }
 
 button:hover {
-    background-color: darkblue;
+    background-color: var(--color2);
 }
 
 main {
@@ -68,7 +75,7 @@ main {
 }
 
 body {
-    background-color: plum;
+    background-color: lightslategray
 }
 
 p {
@@ -89,13 +96,13 @@ p {
 /* ---------------- */
 
 #highscore-list > li:nth-child(odd) {
-    background-color: deeppink;
-    color: deepskyblue;
+    background-color: var(--color1);
+    color: var(--color4);
 }
 
 #highscore-list > li:nth-child(even) {
-    background-color: deeppink;
-    color: plum;
+    background-color: var(--color2);
+    color: var(--color4);
 }
 
 /* ----------- */
